@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Profil du Candidat</h2>
+
+<!-- Affichage des informations du candidat -->
+<p><strong>Nom :</strong> {{ candidat.nom }}</p>
+<p><strong>Prénom :</strong> {{ candidat.prenom }}</p>
+<p><strong>Email :</strong> {{ candidat.email }}</p>
+<p><strong>Date de naissance :</strong> {{ candidat.date_naissance }}</p>
+<p><strong>Lieu de naissance :</strong> {{ candidat.lieu_naissance }}</p>
+<p><strong>Situation Matrimoniale :</strong> {{ candidat.situation_matrimoniale }}</p>
+<p><strong>Région :</strong> {{ candidat.region }}</p>
+<p><strong>Téléphone Contact :</strong> {{ candidat.telephone_contact }}</p>
+<p><strong>Téléphone WhatsApp :</strong> {{ candidat.telephone_whatsapp }}</p>
+<p><strong>Numéro d'Identification :</strong> {{ candidat.numero_identification }}</p>
+<p><strong>Dernier Diplôme :</strong> {{ candidat.dernier_diplome }}</p>
+<p><strong>Langue Parlée 1 :</strong> {{ candidat.langue_parlee1 }}</p>
+<p><strong>Langue Parlée 2 :</strong> {{ candidat.langue_parlee2 }}</p>
+<p><strong>Langue Parlée 3 :</strong> {{ candidat.langue_parlee3 }}</p>
+
+<!-- Affichage des fichiers téléchargés -->
+<p><strong>CV :</strong> <a href="{{ candidat.cv.url }}" target="_blank">Télécharger le CV</a></p>
+<p><strong>Certificat de Nationalité :</strong> <a href="{{ candidat.certificat_nationalite.url }}" target="_blank">Télécharger le Certificat</a></p>
+<p><strong>Lettre de Motivation :</strong> <a href="{{ candidat.lettre_motivation.url }}" target="_blank">Télécharger la Lettre</a></p>
+<p><strong>Copie Légalise du Bac :</strong> <a href="{{ candidat.copie_legalise_bac.url }}" target="_blank">Télécharger la Copie</a></p>
+<p><strong>Copie Extrait de Naissance :</strong> <a href="{{ candidat.copie_extrait_naissance.url }}" target="_blank">Télécharger la Copie</a></p>
+<p><strong>Certificat de Domicile ou Résidence :</strong> <a href="{{ candidat.certificat_domicile_ou_residence.url }}" target="_blank">Télécharger le Certificat</a></p>
+<p><strong>Attestation d'Enquête :</strong> <a href="{{ candidat.atestation_enquete.url }}" target="_blank">Télécharger l'Attestation</a></p>
+
+<!-- Lien pour modifier le profil -->
+<a href="{% url 'profil_edit' candidat.pk %}" class="btn btn-primary">Modifier le Profil</a>
+
+{% endblock %}

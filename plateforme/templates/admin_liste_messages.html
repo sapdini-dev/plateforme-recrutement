@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Messages</title>
+</head>
+<body>
+<h2>Liste des Messages de Contact</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Sujet</th>
+            <th>Message</th>
+            <th>Réponse</th>
+            <th>Date</th>
+            <th>Répondu</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for message in messages %}
+        <tr>
+            <td>{{ message.name }}</td>
+            <td>{{ message.email }}</td>
+            <td>{{ message.subject }}</td>
+            <td>{{ message.message }}</td>
+            <td>{{ message.response|default:"Pas encore de réponse" }}</td>
+            <td>{{ message.created_at }}</td>
+            <td>
+                {% if message.is_answered %}
+                    <span>Répondu</span>
+                {% else %}
+                    <a href="{% url 'repondre_message' message.id %}">Répondre</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>

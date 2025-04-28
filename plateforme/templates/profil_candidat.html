@@ -1,0 +1,275 @@
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil du Candidat</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .step {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        .progress-bar {
+            width: 0%;
+        }
+        .step-number {
+            margin-right: 10px;
+        }
+        .header, .footer {
+            background-color: orange;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1>Bienvenue sur le formulaire de mise à jour du profil</h1>
+        </div>
+    </header>
+
+    <div class="container mt-5">
+        <h2 class="mb-4">Profil du Candidat</h2>
+        <form id="multiStepForm" method="post" enctype="multipart/form-data" action="{% url 'profil_candidat' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.offre_emploi.label }} 
+                {{ form.offre_emploi }}  <!-- Champ pour l'offre d'emploi -->
+            </div>
+            <!-- Affichage des erreurs -->
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    <ul>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li>{{ field.label }}: {{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <!-- Progress Bar -->
+            <div class="mb-4">
+                <div class="progress">
+                    <div class="progress-bar bg-primary" role="progressbar" style="width: 0%;" id="progressBar"></div>
+                </div>
+                <div class="d-flex justify-content-between mt-2">
+                    <span class="step-number">Étape <span id="currentStep">1</span> sur <span id="totalSteps">{{ steps|length }}</span></span>
+                </div>
+            </div>
+
+            <!-- Step 1: Informations Personnelles -->
+            <div class="step active">
+                <h4>Informations sur l'Identification</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="id_nom">Nom</label>
+                        {{ form.nom|add_class:"form-control" }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="id_prenom">Prénom</label>
+                        {{ form.prenom|add_class:"form-control" }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label>Sexe</label>
+                        {{ form.sexe|add_class:"form-check-input" }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="id_date_naissance">Date de Naissance</label>
+                        {{ form.date_naissance|add_class:"form-control" }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_lieu_naissance">Lieu de Naissance</label>
+                    {{ form.lieu_naissance|add_class:"form-control" }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_situation_matrimoniale">Situation Matrimoniale</label>
+                    {{ form.situation_matrimoniale|add_class:"form-control" }}
+                </div>
+            </div>
+
+            <!-- Step 2: Coordonnées -->
+            <div class="step">
+                <h4>Coordonnées</h4>
+                <div class="form-group">
+                    <label for="id_telephone_contact">Téléphone Contact</label>
+                    {{ form.telephone_contact|add_class:"form-control" }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_telephone_whatsapp">Téléphone WhatsApp</label>
+                    {{ form.telephone_whatsapp|add_class:"form-control" }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_numero_identification">Numéro d'Identification</label>
+                    {{ form.numero_identification|add_class:"form-control" }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_email">Adresse Email</label>
+                    {{ form.email|add_class:"form-control" }}
+                </div>
+            </div>
+
+            <!-- Step 3: Informations Académiques et Professionnelles -->
+            <div class="step">
+                <h4>Informations Académiques et Professionnelles</h4>
+                <div class="form-group">
+                    <label for="id_dernier_diplome">Dernier Diplôme</label>
+                    {{ form.dernier_diplome|add_class:"form-control" }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_region">Région</label>
+                    {{ form.region|add_class:"form-control" }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_situation_activite">Situation Activité</label>
+                    {{ form.situation_activite|add_class:"form-control" }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_langue_parlee1">Langue Parlée 1</label>
+                    {{ form.langue_parlee1|add_class:"form-control" }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_langue_parlee2">Langue Parlée 2</label>
+                    {{ form.langue_parlee2|add_class:"form-control" }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_langue_parlee3">Langue Parlée 3</label>
+                    {{ form.langue_parlee3|add_class:"form-control" }}
+                </div>
+
+                <div class="form-check">
+                    <label for="id_informatique">Connaissance en Informatique</label>
+                    {{ form.informatique|add_class:"form-check-input" }}
+                </div>
+
+                <div class="form-check">
+                    <label for="id_tablettes">Expérience avec les Tablettes</label>
+                    {{ form.tablettes|add_class:"form-check-input" }}
+                </div>
+
+                <div class="form-check">
+                    <label for="id_enquete">Expérience en Enquête</label>
+                    {{ form.enquete|add_class:"form-check-input" }}
+                </div>
+            </div>
+
+            <!-- Step 4: Documents -->
+            <div class="step">
+                <h4>Documents à Joindre</h4>
+                <div class="form-group">
+                    <label for="id_cv">CV</label>
+                    {{ form.cv|add_class:"form-control-file" }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_certificat_nationalite">Certificat de Nationalité</label>
+                    {{ form.certificat_nationalite|add_class:"form-control-file" }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_lettre_motivation">Lettre de Motivation</label>
+                    {{ form.lettre_motivation|add_class:"form-control-file" }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_copie_legalise_bac">Copie Légalisée du BAC</label>
+                    {{ form.copie_legalise_bac|add_class:"form-control-file" }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_copie_extrait_naissance">Copie de l'Extrait de Naissance</label>
+                    {{ form.copie_extrait_naissance|add_class:"form-control-file" }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_certificat_domicile_ou_residence">Certificat de Domicile ou de Résidence</label>
+                    {{ form.certificat_domicile_ou_residence|add_class:"form-control-file" }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_atestation_enquete">Attestation d'Enquête</label>
+                    {{ form.atestation_enquete|add_class:"form-control-file" }}
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="form-navigation mt-4">
+                <button type="button" class="btn btn-secondary" id="prevBtn">Précédent</button>
+                <button type="button" class="btn btn-primary" id="nextBtn">Suivant</button>
+                <button type="submit" class="btn btn-success" id="submitBtn" style="display: none;">Soumettre</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-5">
+        <div class="container text-center">
+            <p>&copy; 2024 Mon Application</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        let currentStep = 0;
+        const steps = document.querySelectorAll(".step");
+        const progressBar = document.getElementById("progressBar");
+        const totalSteps = steps.length;
+        
+        function showStep(stepIndex) {
+            steps.forEach((step, index) => {
+                step.classList.toggle("active", index === stepIndex);
+            });
+            document.getElementById("currentStep").textContent = stepIndex + 1;
+            progressBar.style.width = `${(stepIndex / (totalSteps - 1)) * 100}%`;
+
+            document.getElementById("prevBtn").style.display = stepIndex === 0 ? "none" : "inline";
+            document.getElementById("nextBtn").style.display = stepIndex === totalSteps - 1 ? "none" : "inline";
+            document.getElementById("submitBtn").style.display = stepIndex === totalSteps - 1 ? "inline" : "none";
+        }
+
+        document.getElementById("nextBtn").addEventListener("click", () => {
+            if (currentStep < totalSteps - 1) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        });
+
+        document.getElementById("prevBtn").addEventListener("click", () => {
+            if (currentStep > 0) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        });
+
+        // Initialize form
+        showStep(currentStep);
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!-- lister_offres_et_candidats.html -->
+{% extends "base.html" %}  <!-- Assurez-vous d'étendre un template de base -->
+
+{% block content %}
+<h1>Liste des Offres d'Emploi et Candidats Associés</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Titre de l'Offre</th>
+            <th>Candidats</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in offres_avec_candidats %}
+            <tr>
+                <td>{{ item.offre.titre }}</td>
+                <td>
+                    <ul>
+                        {% for candidature in item.candidatures %}
+                            <li>{{ candidature.candidat.nom }} {{ candidature.candidat.prenom }}</li>
+                        {% empty %}
+                            <li>Aucun candidat n'a postulé à cette offre.</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="2">Aucune offre d'emploi disponible.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'candidat_create' %}">Ajouter un Candidat</a>
+{% endblock %}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Candidatures</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .table th, .table td {
+            text-align: center; /* Centrer le texte */
+        }
+        .table th {
+            white-space: nowrap; /* Empêcher le retour à la ligne des en-têtes */
+        }
+        .table td {
+            vertical-align: middle; /* Aligner verticalement au centre */
+        }
+        .table td a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Liste des Candidatures</h1>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Sexe</th>
+                    <th>Date de Naissance</th>
+                    <th>Lieu de Naissance</th>
+                    <th>Sit. Matrimoniale</th>
+                    <th>Région</th>
+                    <th>Téléphone Contact</th>
+                    <th>Téléphone WhatsApp</th>
+                    <th>Numéro d'Identification</th>
+                    <th>E-mail</th>
+                    <th>Dernier Diplôme</th>
+                    <th>Sit. Activité</th>
+                    <th>Langue Parlée 1</th>
+                    <th>Langue Parlée 2</th>
+                    <th>Langue Parlée 3</th>
+                    <th>Informatique</th>
+                    <th>Tablettes</th>
+                    <th>Enquête</th>
+                    <th>CV</th>
+                    <th>Offre d'Emploi</th>
+                    <th>Date de Postulation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for candidature in candidatures %}
+                <tr>
+                    <td>{{ candidature.nom }}</td>
+                    <td>{{ candidature.prenom }}</td>
+                    <td>{{ candidature.get_sexe_display }}</td>
+                    <td>{{ candidature.date_naissance }}</td>
+                    <td>{{ candidature.lieu_naissance }}</td>
+                    <td>{{ candidature.get_situation_matrimoniale_display }}</td>
+                    <td>{{ candidature.region }}</td>
+                    <td>{{ candidature.telephone_contact }}</td>
+                    <td>{{ candidature.telephone_whatsapp }}</td>
+                    <td>{{ candidature.numero_identification }}</td>
+                    <td>{{ candidature.email }}</td>
+                    <td>{{ candidature.get_dernier_diplome_display }}</td>
+                    <td>{{ candidature.get_situation_activite_display }}</td>
+                    <td>{{ candidature.get_langue_parlee1_display }}</td>
+                    <td>{{ candidature.get_langue_parlee2_display }}</td>
+                    <td>{{ candidature.get_langue_parlee3_display }}</td>
+                    <td>{{ candidature.informatique|yesno:"Oui,Non" }}</td>
+                    <td>{{ candidature.tablettes|yesno:"Oui,Non" }}</td>
+                    <td>{{ candidature.enquete|yesno:"Oui,Non" }}</td>
+                    <td>
+                        {% if candidature.cv %}
+                            <a href="{{ candidature.cv.url }}" target="_blank" class="btn btn-primary btn-sm">Télécharger</a>
+                        {% else %}
+                            Pas de CV
+                        {% endif %}
+                    </td>
+                    <td>{{ candidature.offre_emploi.titre }}</td>
+                    <td>{{ candidature.date_postulation }}</td>
+                </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="21">Aucune candidature disponible.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

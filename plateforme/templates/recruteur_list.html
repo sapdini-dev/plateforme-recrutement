@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Recruteurs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: orange;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        footer {
+            background-color: orange;
+            padding: 10px;
+            text-align: center;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #f9f9f9;
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .container {
+            margin: 20px;
+        }
+
+        .actions {
+            margin-top: 10px;
+        }
+
+        .button {
+            background-color: orange;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: darkorange;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Liste des Recruteurs</h1>
+    </header>
+
+    <div class="container">
+        <h2>Recruteurs</h2>
+        <ul>
+            {% for recruteur in recruteurs %}
+                <li>
+                    <strong>Nom:</strong> {{ recruteur.nom }} <br>
+                    <strong>Entreprise:</strong> {{ recruteur.entreprise }} <br>
+                    <strong>Email:</strong> {{ recruteur.email }} <br>
+                    <strong>Téléphone:</strong> {{ recruteur.telephone }} <br>
+                    <strong>Adresse:</strong> {{ recruteur.adresse }} <br>
+                    <div class="actions">
+                        <a href="{% url 'recruteur_update' recruteur.id %}" class="button">Modifier</a>
+                        <a href="{% url 'recruteur_delete' recruteur.id %}" class="button">Supprimer</a>
+                    </div>
+                </li>
+            {% empty %}
+                <li>Aucun recruteur trouvé.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <footer>
+        <p>© 2024 - Votre Plateforme de Recrutement</p>
+    </footer>
+
+</body>
+</html>

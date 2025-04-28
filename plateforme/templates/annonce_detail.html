@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de l'Annonce</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'styles/custom.css' %}" rel="stylesheet"> <!-- Lien vers le fichier CSS personnalisé -->
+    <style>
+        .top-footer {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            background-color: #FFA500;
+            color: white;
+            border-bottom: 1px solid #e9ecef;
+            padding: 10px;
+            z-index: 1;
+            text-align: center;
+        }
+        .form-footer {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border-top: 1px solid #e9ecef;
+            text-align: center;
+        }
+        .content {
+            margin-top: 100px;
+        }
+        .btn-orange {
+            background-color: #FFA500;
+            color: white;
+            border: none;
+        }
+        .btn-orange:hover {
+            background-color: #ff8c00;
+        }
+        .btn-back {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+        .btn-back:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <!-- Footer en haut -->
+    <header class="top-footer">
+        <p>INS-NIGER PLATEFORME DE RECRUTEMENT EN LIGNE</p>
+    </header>
+
+    <div class="container mt-5 content">
+        <h1>{{ annonce.titre }}</h1>
+        <p>{{ annonce.contenu }}</p>
+        <p>Date de publication : {{ annonce.date_pub }}</p>
+        <a href="{% url 'annonce_list' %}" class="btn btn-back">Retour à la liste</a>
+    </div>
+    <!-- Footer en bas -->
+    <footer class="form-footer">
+        <p>© 2024 INS-NIGER. Tous droits réservés.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>État de la Candidature</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        header {
+            background-color: orange;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        footer {
+            background-color: orange;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>État de Ma Candidature</h1>
+</header>
+
+<div class="container mt-5">
+    {% if candidatures %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Offre d'Emploi</th>
+                <th>Date de Candidature</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for candidature in candidatures %}
+            <tr>
+                <td>{{ candidature.offre_emploi.titre }}</td>
+                <td>{{ candidature.date_candidature|date:"d/m/Y H:i" }}</td>
+                <td>{{ candidature.get_statut_display }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="text-center">Aucune candidature trouvée.</p>
+    {% endif %}
+</div>
+
+<footer>
+    <p>© 2024 Mon Application</p>
+</footer>
+
+</body>
+</html>

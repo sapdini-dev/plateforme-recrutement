@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Modifier l'offre : {{ offre.titre }}</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Sauvegarder</button>
+    <a href="{% url 'listoffre' %}" class="btn btn-secondary">Annuler</a>
+  </form>
+{% endblock %}

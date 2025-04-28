@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire Multi-Étapes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .step {
+            display: none;
+        }
+        .step.active {
+            display: block;
+        }
+        .progress-bar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .progress-bar {
+            width: 100%;
+            background-color: #f3f3f3;
+            height: 8px;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background-color: #007bff;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+        }
+        .step-number {
+            background-color: #007bff;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .form-group {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Formulaire de Candidature</h1>
+
+        <!-- Barre de progression -->
+        <div class="progress-bar-container">
+            <div class="progress-bar">
+                <div class="progress-bar-fill"></div>
+            </div>
+            <div class="progress-steps">
+                <div class="step-number">1</div>
+                <div class="step-number">2</div>
+                <div class="step-number">3</div>
+                <div class="step-number">4</div>
+            </div>
+        </div>
+
+        <form id="multiStepForm">
+            <div class="step active">
+                <h2>Informations sur l'Identification</h2>
+                <div class="form-row mb-3">
+                    <div class="form-group">
+                        <label for="nom" class="form-label">Nom</label>
+                        <input type="text" class="form-control" id="nom" name="nom">
+                    </div>
+                    <div class="form-group">
+                        <label for="prenom" class="form-label">Prénom</label>
+                        <input type="text" class="form-control" id="prenom" name="prenom">
+                    </div>
+                </div>
+                <div class="form-row mb-3">
+                    <div class="form-group">
+                        <label for="sexe" class="form-label">Sexe</label>
+                        <select class="form-select" id="sexe" name="sexe">
+                            <option value="M">Homme</option>
+                            <option value="F">Femme</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="date_naissance" class="form-label">Date de Naissance</label>
+                        <input type="date" class="form-control" id="date_naissance" name="date_naissance">
+                    </div>
+                </div>
+                <div class="form-row mb-3">
+                    <div class="form-group">
+                        <label for="lieu_naissance" class="form-label">Lieu de Naissance</label>
+                        <input type="text" class="form-control" id="lieu_naissance" name="lieu_naissance">
+                    </div>
+                    <div class="form-group">
+                        <label for="situation_matrimoniale" class="form-label">Situation Matrimoniale</label>
+                        <select class="form-select" id="situation_matrimoniale" name="situation_matrimoniale">
+                            <option value="célibataire">Célibataire</option>
+                            <option value="marié(e)">Marié(e)</option>
+                            <option value="divorcé(e)">Divorcé(e)</option>
+                            <option value="veuf(ve)">Veuf(ve)</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary nextBtn">Suivant</button>
+            </div>
+
+            
+            <div class="step">
+                <h2>Informations Personnelles</h2>
+                <div class="form-row mb-3">
+                    <div class="form-group">
+                        <label for="region" class="form-label">Région</label>
+                        <select class="form-select" id="region" name="region">
+                            <option value="">Sélectionnez une région</option>
+                            <option value="Niamey">Niamey</option>
+                            <option value="Maradi">Maradi</option>
+                            <option value="Dosso">Dosso</option>
+                            <option value="Diffa">Diffa</option>
+                            <option value="Tillabéri">Tillabéri</option>
+                            <option value="Zinder">Zinder</option>
+                            <option value="Agadez">Agadez</option>
+                            <option value="Tahoua">Tahoua</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="telephone_contact" class="form-label">Téléphone Personne à Contacter</label>
+                        <input type="text" class="form-control" id="telephone_contact" name="telephone_contact">
+                    </div>
+                </div>
+                <div class="form-row mb-3">
+                    <div class="form-group">
+                        <label for="telephone_whatsapp" class="form-label">Téléphone WhatsApp</label>
+                        <input type="text" class="form-control" id="telephone_whatsapp" name="telephone_whatsapp">
+                    </div>
+                    <div class="form-group">
+                        <label for="numero_identification" class="form-label">Numéro d'Identification</label>
+                        <input type="text" class="form-control" id="numero_identification" name="numero_identification">
+                    </div>
+                </div>
+                <div class="form-row mb-3">
+                    <div class="form-group">
+                        <label for="email" class="form-label">Adresse E-mail</label>
+                        <input type="email" class="form-control" id="email" name="email">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary prevBtn">Précédent</button>
+                <button type="button" class="btn btn-primary nextBtn">Suivant</button>
+            </div>
+
+        
+            <div class="step">
+                <h2>Informations sur l'étude</h2>
+                <div class="form-row mb-3">
+                    <div class="form-group">
+                        <label for="dernier_diplome" class="form-label">Dernier Diplôme Obtenu</label>
+                        <select class="form-select" id="dernier_diplome" name="dernier_diplome">
+                            <option value="bac">Bac</option>
+                            <option value="bac+2">Bac+2</option>
+                            <option value="licence">Licence</option>
+                            <option value="master">Master</option>
+                            <option value="doctora">Doctorat</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="situation_activite" class="form-label">Situation Activité</label>
+                        <input type="text" class="form-control" id="situation_activite" name="situation_activite">
+                    </div>
+                </div>
+                <div class="form-row mb-3">
+                    <div class="form-group">
+                        <label for="langue_parlee1" class="form-label">Langue Parlée 1</label>
+                        <select class="form-select" id="langue_parlee1" name="langue_parlee1">
+                            <option value="">Sélectionnez une langue</option>
+                            <option value="hassoua">Hassoua</option>
+                            <option value="francais">Français</option>
+                            <option value="anglais">Anglais</option>
+                            <option value="touareg">Touareg</option>
+                            <option value="peulh">Peulh</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="langue_parlee2" class="form-label">Langue Parlée 2</label>
+                        <select class="form-select" id="langue_parlee2" name="langue_parlee2">
+                            <option value="">Sélectionnez une langue</option>
+                            <option value="hassoua">Hassoua</option>
+                            <option value="francais">Français</option>
+                            <option value="anglais">Anglais</option>
+                            <option value="touareg">Touareg</option>
+                            <option value="peulh">Peulh</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row mb-3">
+                    <div class="form-group">
+                        <label for="langue_parlee3" class="form-label">Langue Parlée 3</label>
+                        <select class="form-select" id="langue_parlee3" name="langue_parlee3">
+                            <option value="">Sélectionnez une langue</option>
+                            <option value="hassoua">Hassoua</option>
+                            <option value="francais">Français</option>
+                            <option value="anglais">Anglais</option>
+                            <option value="touareg">Touareg</option>
+                            <option value="peulh">Peulh</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="informatique" class="form-label">Connaissance en Informatique</label>
+                        <select class="form-select" id="informatique" name="informatique">
+                            <option value="oui">Oui</option>
+                            <option value="non">Non</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row mb-3">
+                    <div class="form-group">
+                        <label for="tablettes" class="form-label">Expérience dans l'Utilisation des Tablettes</label>
+                        <select class="form-select" id="tablettes" name="tablettes">
+                            <option value="oui">Oui</option>
+                            <option value="non">Non</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="enquete" class="form-label">Expérience Enquête</label>
+                        <select class="form-select" id="enquete" name="enquete">
+                            <option value="oui">Oui</option>
+                            <option value="non">Non</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary prevBtn">Précédent</button>
+                <button type="button" class="btn btn-primary nextBtn">Suivant</button>
+            </div>
+
+            <!-- Étape 4: Pièce à Joindre -->
+            <div class="step">
+                <h2>Pièce à Joindre</h2>
+                <div class="mb-3">
+                    <label for="cv" class="form-label">CV</label>
+                    <input type="file" class="form-control" id="cv" name="cv">
+                </div>
+                <button type="button" class="btn btn-secondary prevBtn">Précédent</button>
+                <button type="submit" class="btn btn-success">Soumettre</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let currentStep = 0;
+            const steps = document.querySelectorAll(".step");
+            const progressBarFill = document.querySelector(".progress-bar-fill");
+            const nextBtns = document.querySelectorAll(".nextBtn");
+            const prevBtns = document.querySelectorAll(".prevBtn");
+            const totalSteps = steps.length;
+
+            function showStep(step) {
+                steps.forEach((el, index) => {
+                    el.classList.remove("active");
+                    if (index === step) {
+                        el.classList.add("active");
+                        updateProgressBar(step);
+                    }
+                });
+            }
+
+            function updateProgressBar(step) {
+                const percentage = ((step + 1) / totalSteps) * 100;
+                progressBarFill.style.width = `${percentage}%`;
+            }
+
+            nextBtns.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    if (currentStep < totalSteps - 1) {
+                        currentStep++;
+                        showStep(currentStep);
+                    }
+                });
+            });
+
+            prevBtns.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    if (currentStep > 0) {
+                        currentStep--;
+                        showStep(currentStep);
+                    }
+                });
+            });
+
+            showStep(currentStep);
+        });
+    </script>
+</body>
+</html>

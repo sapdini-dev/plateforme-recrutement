@@ -1,0 +1,14 @@
+<!-- error.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Erreur</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Erreur</h1>
+    <p>{{ message }}</p>
+    <a href="{% url 'profil_candidat' %}">Retour au profil</a>
+</body>
+</html>

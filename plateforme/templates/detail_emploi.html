@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire Multi-Étapes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .step {
+            display: none;
+        }
+        .step.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Formulaire de Candidature</h1>
+        <form id="multiStepForm">
+            <!-- Étape 1: Informations Personnelles -->
+            <div class="step active">
+                <h2>Informations Personnelles</h2>
+                <div class="mb-3">
+                    <label for="nom" class="form-label">Nom</label>
+                    <input type="text" class="form-control" id="nom" name="nom">
+                </div>
+                <div class="mb-3">
+                    <label for="prenom" class="form-label">Prénom</label>
+                    <input type="text" class="form-control" id="prenom" name="prenom">
+                </div>
+                <div class="mb-3">
+                    <label for="sexe" class="form-label">Sexe</label>
+                    <select class="form-select" id="sexe" name="sexe">
+                        <option value="M">Homme</option>
+                        <option value="F">Femme</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-primary nextBtn">Suivant</button>
+            </div>
+
+            <!-- Étape 2: Coordonnées -->
+            <div class="step">
+                <h2>Coordonnées</h2>
+                <div class="mb-3">
+                    <label for="telephone_personnel" class="form-label">Téléphone Personnel</label>
+                    <input type="text" class="form-control" id="telephone_personnel" name="telephone_personnel">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Adresse E-mail</label>
+                    <input type="email" class="form-control" id="email" name="email">
+                </div>
+                <button type="button" class="btn btn-secondary prevBtn">Précédent</button>
+                <button type="button" class="btn btn-primary nextBtn">Suivant</button>
+            </div>
+
+            <!-- Étape 3: Expérience Professionnelle -->
+            <div class="step">
+                <h2>Expérience Professionnelle</h2>
+                <div class="mb-3">
+                    <label for="dernier_poste" class="form-label">Dernier Poste Occupé</label>
+                    <input type="text" class="form-control" id="dernier_poste" name="dernier_poste">
+                </div>
+                <div class="mb-3">
+                    <label for="entreprise_precedente" class="form-label">Entreprise Précédente</label>
+                    <input type="text" class="form-control" id="entreprise_precedente" name="entreprise_precedente">
+                </div>
+                <button type="button" class="btn btn-secondary prevBtn">Précédent</button>
+                <button type="submit" class="btn btn-success">Soumettre</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let currentStep = 0;
+            const steps = document.querySelectorAll(".step");
+            const nextBtns = document.querySelectorAll(".nextBtn");
+            const prevBtns = document.querySelectorAll(".prevBtn");
+
+            function showStep(step) {
+                steps.forEach((el, index) => {
+                    el.classList.remove("active");
+                    if (index === step) {
+                        el.classList.add("active");
+                    }
+                });
+            }
+
+            nextBtns.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    currentStep++;
+                    showStep(currentStep);
+                });
+            });
+
+            prevBtns.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    currentStep--;
+                    showStep(currentStep);
+                });
+            });
+
+            showStep(currentStep);
+        });
+    </script>
+</body>
+</html>

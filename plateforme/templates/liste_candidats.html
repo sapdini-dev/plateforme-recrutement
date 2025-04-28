@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Liste des Candidats</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- Inclure le CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Liste des Candidats</h1>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>CV</th>
+                    <th>Compétences</th>
+                    <th>Expérience (années)</th>
+                    <th>Date de Naissance</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for candidat in candidats %}
+                    <tr>
+                        <td>{{ candidat.prenom }}</td>
+                        <td>{{ candidat.nom }}</td>
+                        <td>{{ candidat.email }}</td>
+                        <td>
+                            {% if candidat.cv %}
+                                <a href="{{ candidat.cv.url }}" class="btn btn-info btn-sm" target="_blank">Télécharger le CV</a>
+                            {% else %}
+                                <span class="text-muted">Pas de CV</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ candidat.competences }}</td>
+                        <td>{{ candidat.experience }}</td>
+                        <td>{{ candidat.date_naissance }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Inclure le JavaScript de Bootstrap et ses dépendances -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

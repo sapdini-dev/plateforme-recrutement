@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page d'Accueil - Plateforme de Recrutement</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    
+<style>
+    .bg-orange {
+        background-color: #ff8c00; /* Couleur orange claire */
+    }
+    .carousel-caption h5 {
+        font-size: 2.5rem; /* Taille du titre dans le carousel */
+    }
+    .carousel-caption p {
+        font-size: 1.25rem; /* Taille du texte dans le carousel */
+    }
+    .banner-img {
+        height: 550px; /* Taille personnalisée de la bannière */
+        object-fit: cover;
+    }
+    .navbar-brand img {
+        height: 80px; /* Ajustez la taille de l'image du logo */
+        width: 150px; /* Conserver les proportions de l'image */
+    }
+    footer {
+        padding: 50px 0; /* Agrandir le footer */
+    }
+    footer p, footer a {
+        font-size: 1.0rem; /* Taille plus grande pour le texte du footer */
+    }
+    .card {
+        border-radius: 10px;
+    }
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+    .card-body {
+        padding: 20px;
+    }
+    .btn-primary, .btn-secondary {
+        margin-top: 15px;
+    }
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-orange text-white shadow-sm">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'images/logo.jpg' %}" alt="Logo INS-NIGER">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'accueil_candidat' %}">Accueil Candidat</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'register' %}">Créer un compte</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'login' %}">Connexion</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'contact' %}">Contact</a>
+                </li>
+                {% if request.user.is_staff %}
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'admin_dashboard' %}">Espace Administrateur</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Slideshow -->
+<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="{% static 'images/banner1.jpeg' %}" class="d-block w-100 banner-img" alt="Offres récentes">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Bienvenue sur notre plateforme de recrutement</h5>
+                <p>Trouvez les meilleures offres d'emploi adaptées à vos compétences.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'images/banner4.jpeg' %}" class="d-block w-100 banner-img" alt="Postulez facilement">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Postulez facilement</h5>
+                <p>Créez un compte et postulez en quelques clics.</p>
+            </div>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExample" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Précédent</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExample" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Suivant</span>
+    </a>
+</div>
+
+<!-- Section d'Introduction pour les Candidats -->
+<div class="container mt-5">
+    <h2 class="text-center">Bienvenue, Candidats !</h2>
+    <p class="text-center">Créez votre profil et postulez aux offres qui correspondent à vos compétences.</p>
+    <div class="text-center">
+        <a href="{% url 'candidat_create' %}" class="btn btn-primary">Commencer</a>
+    </div>
+</div>
+
+<!-- Section Annonces -->
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Annonces</h2>
+    <div class="row">
+        {% for annonce in annonces %}
+        <div class="col-md-6">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ annonce.titre }}</h5>
+                    <p class="card-text">{{ annonce.contenu }}</p>
+                    <p class="card-text"><strong>Date de publication:</strong> {{ annonce.date_pub }}</p>
+                    {% if annonce.document %}
+                        <a href="{{ annonce.document.url }}" class="btn btn-secondary" download>Télécharger le fichier</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">Aucune annonce disponible pour le moment.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Section Offres d'Emploi -->
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Offres d'Emploi</h2>
+    <div class="row">
+        {% for offre in offres %}
+        <div class="col-md-6">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ offre.titre }}</h5>
+                    <p class="card-text">{{ offre.description }}</p>
+                    <p class="card-text"><strong>Date de publication:</strong> {{ offre.date_pub }}</p>
+                    <p class="card-text"><strong>Date d'expiration:</strong> {{ offre.date_exp }}</p>
+
+                    {% if offre.date_exp >= today %}
+                        <a href="{% url 'candidat_create' %}?offre={{ offre.id }}" class="btn btn-primary">Postuler</a>
+                    {% else %}
+                        <button class="btn btn-secondary" disabled>Clôturé</button>
+                    {% endif %}
+
+                    {% if offre.document %}
+                        <a href="{{ offre.document.url }}" class="btn btn-secondary" download>Télécharger le fichier</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">Aucune offre d'emploi disponible pour le moment.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-orange text-white text-center mt-5 py-4">
+    <p>&copy; 2024 INS-NIGER - Tous droits réservés</p>
+    <p>Contact: <a href="mailto:contact@ins-niger.org" class="text-white">contact@ins-niger.org</a></p>
+    {% if request.user.is_staff %}
+    <p><a href="{% url 'admin_dashboard' %}" class="text-white">Espace Administrateur</a></p>
+    {% endif %}
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

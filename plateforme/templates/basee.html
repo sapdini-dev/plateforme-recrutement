@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Votre Application{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Votre Application</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'avis_recrutement' %}">Avis de Recrutement</a></li>
+                <li><a href="{% url 'avis_communiquer' %}">Avis de Communiquer</a></li>
+                <li><a href="{% url 'postuler_annonce' %}">Postuler sur l'Annonce</a></li>
+                <li><a href="{% url 'annonce_recrutement' %}">Page Principale</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Votre Application</p>
+    </footer>
+</body>
+</html>

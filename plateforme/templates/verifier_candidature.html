@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vérifier l'état de la candidature</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .bg-orange {
+            background-color: #ff9800;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="bg-orange text-white p-3 mb-3">
+    <div class="container">
+        <h1 class="text-center">Système de Gestion des Candidats</h1>
+    </div>
+</header>
+
+<!-- Contenu principal -->
+<div class="container">
+    <!-- Formulaire de vérification -->
+    <h2>Vérifier l'état de la candidature</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Vérifier</button>
+        <a href="{% url 'verifier_candidature' %}" class="btn btn-secondary ml-2">Annuler</a>
+    </form>
+
+    <!-- Résultat de la vérification -->
+    {% if offre_emploi %}
+    <div class="mt-4">
+        <h3>Résultat de la vérification :</h3>
+        <p><strong>Offre d'emploi :</strong> {{ offre_emploi.titre }}</p>
+        <p><strong>Date de candidature :</strong> {{ date_candidature }}</p>
+        <p><strong>Statut de la candidature :</strong> {{ statut_candidature }}</p>
+        
+        <!-- Affichage de l'acceptation du candidat par un avis -->
+        {% if statut_candidature == 'ACCEPTE' %}
+            <div class="alert alert-success mt-4">
+                Félicitations, votre candidature a été acceptée selon l'avis de recrutement !
+            </div>
+        {% else %}
+            <div class="alert alert-warning mt-4">
+                Malheureusement, vous n'avez pas encore été accepté. Veuillez consulter ultérieurement.
+            </div>
+        {% endif %}
+    </div>
+    {% elif message %}
+    <div class="alert alert-warning mt-4">{{ message }}</div>
+    {% endif %}
+    
+    <!-- Section pour afficher l'avis de recrutement -->
+    {% if avis_recrutement %}
+    <div class="mt-5">
+        <h3>Avis de recrutement :</h3>
+        <p><strong>Titre de l'avis :</strong> {{ avis_recrutement.intitule }}</p>
+        <a href="{{ avis_recrutement.document.url }}" class="btn btn-info">Télécharger l'avis</a>
+    </div>
+    {% endif %}
+    
+    <!-- Section pour afficher l'avis de communiqué -->
+    {% if avis_communique %}
+    <div class="mt-5">
+        <h3>Avis de communiqué :</h3>
+        <p><strong>Titre de l'avis :</strong> {{ avis_communique.intitule }}</p>
+        <a href="{{ avis_communique.document.url }}" class="btn btn-info">Télécharger le communiqué</a>
+    </div>
+    {% endif %}
+    
+</div>
+
+<!-- Footer -->
+<footer class="bg-orange text-white mt-5 p-4">
+    <div class="container text-center">
+        <p>&copy; 2024 - Plateforme de Recrutement</p>
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

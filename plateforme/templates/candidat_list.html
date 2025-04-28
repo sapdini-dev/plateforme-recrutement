@@ -1,0 +1,110 @@
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Candidats</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+        }
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            color: white;
+            background-color: orange;
+            padding: 10px;
+        }
+        .navbar {
+            background-color: orange;
+            color: white;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <h1 class="text-center">Liste des Candidats</h1>
+</div>
+
+<div class="container mt-5">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Sexe</th>
+                <th>Date de Naissance</th>
+                <th>Lieu de Naissance</th>
+                <th>Situation Matrimoniale</th>
+                <th>Téléphone Contact</th>
+                <th>Téléphone WhatsApp</th>
+                <th>Numéro d'Identification</th>
+                <th>Email</th>
+                <th>Dernier Diplôme</th>
+                <th>Situation d'Activité</th>
+                <th>Langue Parlée 1</th>
+                <th>Langue Parlée 2</th>
+                <th>Langue Parlée 3</th>
+                <th>Région</th>
+                <th>Informatique</th>
+                <th>Tablettes</th>
+                <th>Enquête</th>
+                <th>CV</th>
+                <th>Certificat de Nationalité</th>
+                <th>Lettre de Motivation</th>
+                <th>Copie Légalisée du Bac</th>
+                <th>Copie Extrait de Naissance</th>
+                <th>Certificat de Domicile ou Résidence</th>
+                <th>Attestation d'Enquête</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for candidat in candidats %}
+            <tr>
+                <td>{{ candidat.nom }}</td>
+                <td>{{ candidat.prenom }}</td>
+                <td>{{ candidat.get_sexe_display }}</td>
+                <td>{{ candidat.date_naissance|date:"d/m/Y" }}</td>
+                <td>{{ candidat.lieu_naissance }}</td>
+                <td>{{ candidat.get_situation_matrimoniale_display }}</td>
+                <td>{{ candidat.telephone_contact }}</td>
+                <td>{{ candidat.telephone_whatsapp }}</td>
+                <td>{{ candidat.numero_identification }}</td>
+                <td>{{ candidat.email }}</td>
+                <td>{{ candidat.dernier_diplome }}</td>
+                <td>{{ candidat.situation_activite }}</td>
+                <td>{{ candidat.langue_parlee1 }}</td>
+                <td>{{ candidat.langue_parlee2 }}</td>
+                <td>{{ candidat.langue_parlee3 }}</td>
+                <td>{{ candidat.region }}</td>
+                <td>{{ candidat.informatique }}</td>
+                <td>{{ candidat.tablettes }}</td>
+                <td>{{ candidat.enquete }}</td>
+                <td><a href="{{ candidat.cv.url }}" target="_blank">Télécharger</a></td>
+                <td><a href="{{ candidat.certificat_nationalite.url }}" target="_blank">Télécharger</a></td>
+                <td><a href="{{ candidat.lettre_motivation.url }}" target="_blank">Télécharger</a></td>
+                <td><a href="{{ candidat.copie_legalise_bac.url }}" target="_blank">Télécharger</a></td>
+                <td><a href="{{ candidat.copie_extrait_naissance.url }}" target="_blank">Télécharger</a></td>
+                <td><a href="{{ candidat.certificat_domicile_ou_residence.url }}" target="_blank">Télécharger</a></td>
+                <td><a href="{{ candidat.atestation_enquete.url }}" target="_blank">Télécharger</a></td>
+                <td>
+                    <a href="{% url 'candidat_update' candidat.pk %}" class="btn btn-warning btn-sm">Modifier</a>
+                    <a href="{% url 'candidat_delete' candidat.pk %}" class="btn btn-danger btn-sm">Supprimer</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="footer">
+    <p>&copy; 2024 - Plateforme de Recrutement</p>
+</div>
+
+</body>
+</html>

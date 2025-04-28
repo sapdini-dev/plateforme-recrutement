@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du Message de Contact</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        header {
+            background-color: orange;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+        }
+        footer {
+            background-color: orange;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        .content {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Plateforme de Recrutement</h1>
+</header>
+
+<div class="content container">
+    <h2>Message de Contact: {{ contact_message.subject }}</h2>
+    <p><strong>De:</strong> {{ contact_message.name }} {{ contact_message.prenom }}</p>
+    <p><strong>Email:</strong> {{ contact_message.email }}</p>
+    <p><strong>Téléphone:</strong> {{ contact_message.phone }}</p>
+    <p><strong>Message:</strong> {{ contact_message.message }}</p>
+    <p><strong>Date d'envoi:</strong> {{ contact_message.date_sent }}</p>
+
+    <h3>Répondre au message</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Envoyer la réponse</button>
+    </form>
+
+    {% if contact_message.reponses.all %}
+        <h3>Réponses</h3>
+        <ul class="list-unstyled">
+            {% for reponse in contact_message.reponses.all %}
+                <li class="border p-2 my-2 bg-light">
+                    <strong>Réponse:</strong> {{ reponse.response_text }} <br>
+                    <strong>Date:</strong> {{ reponse.date_sent }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <a href="{% url 'message_list' %}" class="btn btn-secondary">Retour à la liste des messages</a>
+</div>
+
+<footer>
+    <p>&copy; 2024 Plateforme de Recrutement. Tous droits réservés.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Messages de Contact</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-warning text-white text-center py-3">
+        <h1>Liste des Messages de Contact</h1>
+    </header>
+
+    <!-- Main content -->
+    <div class="container mt-5">
+        <h2 class="mb-4">Messages reçus</h2>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Téléphone</th>
+                    <th scope="col">Sujet</th>
+                    <th scope="col">Message</th>
+                    <th scope="col">Date d'envoi</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for message in messages %}
+                <tr>
+                    <td>{{ message.name }}</td>
+                    <td>{{ message.email }}</td>
+                    <td>{{ message.phone }}</td>
+                    <td>{{ message.subject }}</td>
+                    <td>{{ message.message|truncatewords:10 }}</td>  <!-- Truncate for better readability -->
+                    <td>{{ message.created_at|date:"d/m/Y H:i" }}</td>  <!-- Affichage de la date d'envoi formaté -->
+                    <td>
+                        <div class="d-flex gap-2">
+                            <a href="{% url 'respond_to_message' message.id %}" class="btn btn-info btn-sm">Répondre</a>
+                            <a href="{% url 'message_detail' message.id %}" class="btn btn-secondary btn-sm">Détails</a> <!-- Lien vers les détails -->
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="text-center">Aucun message trouvé.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-warning text-white text-center py-3 mt-5">
+        <p>&copy; 2024 Mon Application</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

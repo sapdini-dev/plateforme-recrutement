@@ -1,0 +1,291 @@
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire Multi-Étapes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .step {
+            display: none;
+        }
+        .step.active {
+            display: block;
+        }
+        .progress-bar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .progress-bar {
+            width: 100%;
+            background-color: #f3f3f3;
+            height: 8px;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background-color: #007bff; /* Couleur de fond des étapes */
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+        }
+        .step-number {
+            background-color: #007bff; /* Couleur des numéros des étapes */
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .form-group {
+            flex: 1;
+        }
+        .form-footer {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #007bff; /* Couleur du footer identique au bouton */
+            color: white; /* Couleur du texte en contraste */
+            border-top: 1px solid #e9ecef;
+            text-align: center; /* Centrer le texte */
+        }
+        .top-footer {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            background-color: #FFA500; /* Couleur orange pour le footer en haut */
+            color: white; /* Couleur du texte en contraste */
+            border-bottom: 1px solid #e9ecef;
+            padding: 10px;
+            z-index: 1;
+            text-align: center; /* Centrer le texte */
+        }
+        .content {
+            margin-top: 100px; /* Espace pour le footer en haut */
+        }
+        .button-container {
+            display: flex;
+            justify-content: flex-end; /* Pousser les boutons vers la droite */
+            gap: 10px; /* Espacement entre les boutons */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Footer en haut -->
+        <footer class="top-footer">
+            <p>INS-NIGER PLATEFORME DE RECRUTEMENT EN LIGNE</p>
+        </footer>
+
+        <div class="content">
+            <!-- Barre de progression -->
+            <div class="progress-bar-container">
+                <div class="progress-bar">
+                    <div class="progress-bar-fill"></div>
+                </div>
+                <div class="progress-steps">
+                    <div class="step-number">1</div>
+                    <div class="step-number">2</div>
+                    <div class="step-number">3</div>
+                    <div class="step-number">4</div>
+                </div>
+            </div>
+
+            <form id="multiStepForm" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <!-- Étape 1: Informations Personnelles -->
+                <div class="step active">
+                    <h2>Informations sur l'Identification</h2>
+                    <div class="form-row mb-5">
+                        <div class="form-group">
+                            <label for="id_nom" class="form-label">Nom</label>
+                            {% render_field form.nom class="form-control" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_prenom" class="form-label">Prénom</label>
+                            {% render_field form.prenom class="form-control" %}
+                        </div>
+                    </div>
+                    <div class="form-row mb-3">
+                        <div class="form-group">
+                            <label for="id_sexe" class="form-label">Sexe</label>
+                            {% render_field form.sexe class="form-check-input" %}
+                            {% render_field form.sexe class="form-select" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_date_naissance" class="form-label">Date de Naissance</label>
+                            {% render_field form.date_naissance class="form-control" %}
+                        </div>
+                    </div>
+                    <div class="form-row mb-3">
+                        <div class="form-group">
+                            <label for="id_lieu_naissance" class="form-label">Lieu de Naissance</label>
+                            {% render_field form.lieu_naissance class="form-control" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_situation_matrimoniale" class="form-label">Situation Matrimoniale</label>
+                            {% render_field form.situation_matrimoniale class="form-select" %}
+                        </div>
+                    </div>
+                    <div class="button-container">
+                        <button type="button" class="btn btn-primary nextBtn">Suivant</button>
+                    </div>
+                </div>
+
+                <!-- Étape 2: Coordonnées -->
+                <div class="step">
+                    <h2>Informations Personnelles</h2>
+                    <div class="form-row mb-3">
+                        <div class="form-group">
+                            <label for="id_region" class="form-label">Région</label>
+                            {% render_field form.region class="form-select" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_telephone_contact" class="form-label">Téléphone Personne à Contacter</label>
+                            {% render_field form.telephone_contact class="form-control" %}
+                        </div>
+                    </div>
+                    <div class="form-row mb-3">
+                        <div class="form-group">
+                            <label for="id_telephone_whatsapp" class="form-label">Téléphone WhatsApp</label>
+                            {% render_field form.telephone_whatsapp class="form-control" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_numero_identification" class="form-label">Numéro d'Identification</label>
+                            {% render_field form.numero_identification class="form-control" %}
+                        </div>
+                    </div>
+                    <div class="form-row mb-3">
+                        <div class="form-group">
+                            <label for="id_email" class="form-label">Adresse E-mail</label>
+                            {% render_field form.email class="form-control" %}
+                        </div>
+                    </div>
+                    <div class="button-container">
+                        <button type="button" class="btn btn-secondary prevBtn">Précédent</button>
+                        <button type="button" class="btn btn-primary nextBtn">Suivant</button>
+                    </div>
+                </div>
+
+                <!-- Étape 3: Expérience Professionnelle -->
+                <div class="step">
+                    <h2>Informations sur l'étude</h2>
+                    <div class="form-row mb-3">
+                        <div class="form-group">
+                            <label for="id_dernier_diplome" class="form-label">Dernier Diplôme Obtenu</label>
+                            {% render_field form.dernier_diplome class="form-select" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_situation_activite" class="form-label">Situation Activité</label>
+                            {% render_field form.situation_activite class="form-control" %}
+                        </div>
+                    </div>
+                    <div class="form-row mb-3">
+                        <div class="form-group">
+                            <label for="id_langue_parlee1" class="form-label">Langue Parlée 1</label>
+                            {% render_field form.langue_parlee1 class="form-select" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_langue_parlee2" class="form-label">Langue Parlée 2</label>
+                            {% render_field form.langue_parlee2 class="form-select" %}
+                        </div>
+                    </div>
+                    <div class="form-row mb-3">
+                        <div class="form-group">
+                            <label for="id_langue_parlee3" class="form-label">Langue Parlée 3</label>
+                            {% render_field form.langue_parlee3 class="form-select" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_informatique" class="form-label">Connaissance en Informatique</label>
+                            {% render_field form.informatique class="form-check-input" %}
+                        </div>
+                    </div>
+                    <div class="form-row mb-3">
+                        <div class="form-group">
+                            <label for="id_tablettes" class="form-label">Expérience dans l'Utilisation des Tablettes</label>
+                            {% render_field form.tablettes class="form-check-input" %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_enquete" class="form-label">Expérience Enquête</label>
+                            {% render_field form.enquete class="form-check-input" %}
+                        </div>
+                    </div>
+                    <div class="button-container">
+                        <button type="button" class="btn btn-secondary prevBtn">Précédent</button>
+                        <button type="button" class="btn btn-primary nextBtn">Suivant</button>
+                    </div>
+                </div>
+
+                <!-- Étape 4: Pièce à Joindre -->
+                <div class="step">
+                    <h2>Pièce à Joindre</h2>
+                    <div class="mb-3">
+                        <label for="id_cv" class="form-label">CV</label>
+                        {% render_field form.cv class="form-control" %}
+                    </div>
+                    <div class="button-container">
+                        <button type="button" class="btn btn-secondary prevBtn">Précédent</button>
+                        <button type="submit" class="btn btn-success">Soumettre</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Footer en bas -->
+            <footer class="form-footer mt-4">
+                <p>Copyright © INS 2024.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+           document.addEventListener("DOMContentLoaded", function() {
+    let currentStep = 0;
+    const steps = document.querySelectorAll(".step");
+    const progressBarFill = document.querySelector(".progress-bar-fill");
+    const nextButtons = document.querySelectorAll(".nextBtn");
+    const prevButtons = document.querySelectorAll(".prevBtn");
+
+    function updateStep(step) {
+        steps.forEach((el, i) => el.classList.toggle("active", i === step));
+        progressBarFill.style.width = ((step + 1) / steps.length) * 100 + "%";
+        console.log(`Current step: ${step}`); // Debugging line
+    }
+
+    nextButtons.forEach((button) => button.addEventListener("click", function() {
+        currentStep = Math.min(currentStep + 1, steps.length - 1);
+        updateStep(currentStep);
+    }));
+
+    prevButtons.forEach((button) => button.addEventListener("click", function() {
+        currentStep = Math.max(currentStep - 1, 0);
+        updateStep(currentStep);
+    }));
+
+    updateStep(currentStep);
+        });
+    </script>
+</body>
+</html>
+

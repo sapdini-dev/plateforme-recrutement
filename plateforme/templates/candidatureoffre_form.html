@@ -1,0 +1,67 @@
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de Candidature</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+        }
+        .header, .footer {
+            background-color: orange;
+            color: white;
+            padding: 10px;
+        }
+        .header {
+            margin-bottom: 30px;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .form-container {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-container h1 {
+            margin-bottom: 20px;
+        }
+        .btn-primary {
+            background-color: orange;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: darkorange;
+        }
+        .btn-secondary {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header text-center">
+    <h1>Plateforme de Recrutement</h1>
+</div>
+
+<div class="container mt-5 form-container">
+    <h1 class="text-center">Formulaire de Candidature</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+    </form>
+    <a href="{% url 'candidatureoffre_list' %}" class="btn btn-secondary">Retour à la Liste</a>
+</div>
+
+<div class="footer">
+    <p>&copy; 2024 - Plateforme de Recrutement</p>
+</div>
+
+</body>
+</html>

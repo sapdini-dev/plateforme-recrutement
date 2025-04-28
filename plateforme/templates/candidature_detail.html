@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de la Candidature {{ candidature.numero_dossier }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Style personnalisé pour l'en-tête */
+        .bg-orange {
+            background-color: orange; /* Définissez la couleur de l'en-tête ici */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- En-tête -->
+    <header class="bg-orange text-white text-center py-3">
+        <h1>Gestion des Candidatures</h1>
+    </header>
+
+    <div class="container mt-5">
+        <h2>Détails de la Candidature {{ candidature.numero_dossier }}</h2>
+
+        <ul class="list-group">
+            <li class="list-group-item"><strong>Nom du Candidat:</strong> {{ candidature.candidat.nom }}</li>
+            <li class="list-group-item"><strong>Prénom:</strong> {{ candidature.candidat.prenom }}</li>
+            <li class="list-group-item"><strong>Email:</strong> {{ candidature.candidat.email }}</li>
+            <li class="list-group-item"><strong>Téléphone:</strong> {{ candidature.candidat.telephone_contact }}</li>
+            <li class="list-group-item"><strong>Date de postulation:</strong> {{ candidature.date_postulation }}</li>
+            <li class="list-group-item"><strong>Statut:</strong> {{ candidature.statut.statut }}</li>
+            <li class="list-group-item"><strong>Numéro de Dossier:</strong> {{ candidature.numero_dossier }}</li>
+        </ul>
+
+        <a href="{% url 'update_statut_candidature' candidature.id %}" class="btn btn-warning mt-3">Mettre à jour le statut</a>
+        <a href="{% url 'liste_candidatures' offre_id=candidature.offre_emploi.id %}" class="btn btn-secondary mt-3">Retour à la liste</a>
+    </div>
+
+    <!-- Pied de page -->
+    <footer class="bg-light text-center py-3 mt-5">
+        <p>&copy; {{ current_year }} - Tous droits réservés</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

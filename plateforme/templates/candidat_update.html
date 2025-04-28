@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier le Profil du Candidat</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Couleur orange pour le header et le footer */
+        .bg-orange {
+            background-color: #ff9800;
+        }
+        /* Agrandir les champs du formulaire */
+        .form-control {
+            height: 50px; /* Ajuster la hauteur des champs */
+            font-size: 18px; /* Agrandir la taille du texte */
+        }
+        /* Bouton plus large */
+        .btn-large {
+            padding: 15px 30px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="bg-orange text-white p-3 mb-3">
+    <div class="container">
+        <h1 class="text-center">Modifier le Profil du Candidat</h1>
+    </div>
+</header>
+
+<!-- Contenu principal -->
+<div class="container">
+    <h2 class="mb-4">Mettre à jour vos informations</h2>
+    <form method="post" class="mb-5">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+
+        <!-- Afficher les erreurs de formulaire -->
+        {% if form.errors %}
+          <div class="alert alert-danger">
+            <ul>
+              {% for field in form %}
+                {% for error in field.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              {% endfor %}
+              {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+        <div class="mb-3">
+          <label for="id_verification" class="form-label">Numéro de vérification :</label>
+          <input type="text" class="form-control" id="id_verification" value="{{ id_verification }}" readonly>
+      </div>
+
+        <button type="submit" class="btn btn-primary btn-large">Enregistrer</button>
+    </form>
+</div>
+
+<!-- Footer -->
+<footer class="bg-orange text-white mt-5 p-4">
+    <div class="container text-center">
+        <p>&copy; 2024 - Plateforme de Recrutement</p>
+    </div>
+</footer>
+
+<!-- Inclusion de Bootstrap JS (facultatif) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

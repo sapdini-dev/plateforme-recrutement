@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .content {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .bg-orange {
+            background-color: orange !important;
+        }
+        .text-orange {
+            color: orange !important;
+        }
+        .password-container {
+            position: relative;
+        }
+        .password-container input {
+            width: 100%;
+            padding-right: 30px;
+        }
+        .eye-icon {
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-orange text-white py-3 text-center">
+        <h1>Inscription</h1>
+    </header>
+
+    <div class="content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header bg-orange text-white">
+                            <h2 class="text-center">Créer un compte</h2>
+                        </div>
+                        <div class="card-body">
+                            <form method="post">
+                                {% csrf_token %}
+                                
+                                <!-- Champ Nom d'utilisateur -->
+                                <div class="form-group">
+                                    <label for="id_username">Nom d'utilisateur</label>
+                                    {{ form.username }}
+                                </div>
+                                
+                                <!-- Champ Email -->
+                                <div class="form-group">
+                                    <label for="id_email">Email</label>
+                                    {{ form.email }}
+                                </div>
+                                
+                                <!-- Champ Mot de passe -->
+                                <div class="form-group password-container">
+                                    <label for="id_password1">Mot de passe</label>
+                                    {{ form.password1 }}
+                                    <span class="eye-icon" onclick="togglePasswordVisibility('id_password1')">👁️</span>
+                                </div>
+
+                                <!-- Champ Confirmer le mot de passe -->
+                                <div class="form-group password-container">
+                                    <label for="id_password2">Confirmer le mot de passe</label>
+                                    {{ form.password2 }}
+                                    <span class="eye-icon" onclick="togglePasswordVisibility('id_password2')">👁️</span>
+                                </div>
+
+                                <button type="submit" class="btn bg-orange text-white btn-block">S'inscrire</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-orange text-white py-3 text-center">
+        <p>&copy; 2024 Votre Entreprise. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        function togglePasswordVisibility(id) {
+            var passwordField = document.getElementById(id);
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+    </script>
+</body>
+</html>

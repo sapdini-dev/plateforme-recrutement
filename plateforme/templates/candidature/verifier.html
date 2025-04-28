@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vérifier ma Candidature</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Couleur de fond de la page */
+        }
+        .bg-orange {
+            background-color: orange; /* Couleur orange personnalisée */
+        }
+    </style>
+</head>
+<body>
+
+    <header class="bg-orange text-white text-center py-3">
+        <h1>Vérifier ma Candidature</h1>
+    </header>
+
+    <div class="container mt-5">
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="numero_dossier">Numéro de Dossier</label>
+                <input type="text" class="form-control" id="numero_dossier" name="numero_dossier" required>
+            </div>
+            <div class="form-group">
+                <label for="telephone_contact">Téléphone de Contact</label>
+                <input type="tel" class="form-control" id="telephone_contact" name="telephone_contact" required>
+            </div>
+            <div class="form-group d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary">Vérifier</button>
+                <a href="{% url 'home' %}" class="btn btn-secondary">Annuler</a>
+
+            </div>
+        </form>
+
+        {% if error %}
+        <div class="alert alert-danger mt-3">{{ error }}</div>
+        {% endif %}
+    </div>
+
+    <footer class="bg-orange text-white text-center py-3 mt-5">
+        <p>&copy; {{ current_year }} - Tous droits réservés</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

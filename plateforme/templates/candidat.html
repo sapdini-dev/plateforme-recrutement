@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Liste des Candidats</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Liste des Candidats</h1>
+    <table class="candidate-table">
+        <thead>
+            <tr>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>CV</th>
+                <th>Compétences</th>
+                <th>Expérience (années)</th>
+                <th>Date de Naissance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for candidat in candidats %}
+                <tr>
+                    <td>{{ candidat.prenom }}</td>
+                    <td>{{ candidat.nom }}</td>
+                    <td>{{ candidat.email }}</td>
+                    <td>
+                        {% if candidat.cv %}
+                            <a href="{{ candidat.cv.url }}" target="_blank">Télécharger le CV</a>
+                        {% else %}
+                            Pas de CV
+                        {% endif %}
+                    </td>
+                    <td>{{ candidat.competences }}</td>
+                    <td>{{ candidat.experience }}</td>
+                    <td>{{ candidat.date_naissance }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

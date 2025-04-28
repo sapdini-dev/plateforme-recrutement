@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord Administrateur</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            transition: background-color 0.3s; /* Transition pour le fond */
+        }
+
+        header {
+            background-color: #ff6f20; /* Couleur orange */
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            position: relative;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Ombre pour le header */
+        }
+
+        footer {
+            background-color: #ff6f20; /* Couleur orange */
+            color: white;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+            width: 100%;
+            bottom: 0;
+        }
+
+        .container {
+            margin-top: 50px; /* Pour éviter la superposition avec le header */
+            margin-bottom: 70px; /* Ajouter de l'espace pour le footer */
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .list-group-item {
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombre pour les items de la liste */
+        }
+
+        .list-group-item:hover {
+            background-color: #f1f1f1; /* Changement de couleur au survol */
+        }
+
+        .btn {
+            width: 100%; /* Les boutons occupent toute la largeur */
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-weight: bold; /* Gras pour les boutons */
+        }
+
+        .btn-primary { background-color: #007bff; }
+        .btn-info { background-color: #17a2b8; }
+        .btn-secondary { background-color: #6c757d; }
+        .btn-success { background-color: #28a745; }
+        .btn-warning { background-color: #ffc107; }
+        .btn-danger { background-color: #dc3545; }
+
+        .btn:hover {
+            filter: brightness(85%); /* Assombrir le bouton au survol */
+        }
+
+        /* Style pour les statistiques */
+        .statistiques {
+            background-color: #ffffff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .statistiques h3 {
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .fa-user-shield {
+            margin-right: 10px; /* Espacement pour l'icône */
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1><i class="fas fa-user-shield"></i> Bienvenue {{ user.username }}</h1>
+</header>
+
+<div class="container">
+    <h2>Tableau de Bord Administrateur</h2>
+    <ul class="list-group">
+        <li class="list-group-item">
+            <a href="{% url 'admin_dashboard' %}" class="btn btn-primary">Tableau de Bord</a>
+        </li>
+        <li class="list-group-item">
+            <a href="{% url 'candidat_list' %}" class="btn btn-info">Liste des Candidatures</a>
+        </li>
+        <li class="list-group-item">
+            <a href="{% url 'listoffre' %}" class="btn btn-secondary">Liste des Offres</a>
+        </li>
+        <li class="list-group-item">
+            <a href="{% url 'annonce_list' %}" class="btn btn-success">Liste des Annonces</a>
+        </li>
+        <li class="list-group-item">
+            <a href="{% url 'liste_messages' %}" class="btn btn-warning">Messages</a>
+        </li>
+        <li class="list-group-item">
+            <a href="{% url 'diplome_list' %}" class="btn btn-warning">Liste des Diplômes</a>
+        </li>
+        <li class="list-group-item">
+            <a href="{% url 'region_list' %}" class="btn btn-warning">Liste des Régions</a>
+        </li>
+        <li class="list-group-item">
+            <a href="{% url 'langue_list' %}" class="btn btn-warning">Liste des Langues</a>
+        </li>
+        <li class="list-group-item">
+            <a href="{% url 'user_list' %}" class="btn btn-warning">Voir Tous les Utilisateurs</a> <!-- Nouveau lien -->
+        </li>
+        <li class="list-group-item"></li>
+            <a href="{% url 'candidatureoffre_list' %}" class="btn btn-success">Liste des candidatures par offre emploi</a>
+        </li>
+        <li class="list-group-item">
+            <a href="{% url 'deconnexion' %}" class="btn btn-danger">Déconnexion</a>
+        </li>
+    </ul>
+
+    <!-- Section Statistiques -->
+    <div class="statistiques">
+        <h3>Statistiques</h3>
+        <ul class="list-group">
+            <li class="list-group-item">Total Candidats: <strong>{{ total_candidats }}</strong></li>
+            <li class="list-group-item">Total Offres: <strong>{{ total_offres }}</strong></li>
+            <li class="list-group-item">Total Candidatures: <strong>{{ total_candidatures }}</strong></li>
+            <li class="list-group-item">Total Annonces: <strong>{{ total_annonces }}</strong></li>
+        </ul>
+    </div>
+</div>
+
+<footer>
+    <p>© 2024 Mon Application</p>
+</footer>
+
+</body>
+</html>

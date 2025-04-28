@@ -1,0 +1,12 @@
+{% extends 'basee.html' %}
+
+{% block content %}
+  <h2>Page Annonce et Recrutement</h2>
+  
+  <ul>
+    <li><a href="{% url 'avis_recrutement' %}">Avis de Recrutement</a></li>
+    <li><a href="{% url 'avis_communiquer' %}">Avis de Communiquer</a></li>
+    <li><a href="{% url 'postuler_annonce' %}">Postuler sur l'Annonce</a></li>
+  </ul>
+  
+{% endblock %}

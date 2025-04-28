@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire Multi-Étapes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .step { display: none; }
+        .step.active { display: block; }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Formulaire de Candidature</h1>
+        <form id="candidatureForm" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <!-- Étape 1: Informations sur l'identification -->
+            <div class="step active">
+                <h2>Informations sur l'identification</h2>
+                <div class="mb-3">
+                    <label for="nom" class="form-label">Nom</label>
+                    <input type="text" class="form-control" id="nom" name="nom" required>
+                </div>
+                <div class="mb-3">
+                    <label for="prenom" class="form-label">Prénom</label>
+                    <input type="text" class="form-control" id="prenom" name="prenom" required>
+                </div>
+                <div class="mb-3">
+                    <label for="date_naissance" class="form-label">Date de Naissance</label>
+                    <input type="date" class="form-control" id="date_naissance" name="date_naissance" required>
+                </div>
+                <div class="mb-3">
+                    <label for="lieu_naissance" class="form-label">Lieu de Naissance</label>
+                    <input type="text" class="form-control" id="lieu_naissance" name="lieu_naissance" required>
+                </div>
+                <div class="mb-3">
+                    <label for="sexe" class="form-label">Sexe</label>
+                    <select class="form-control" id="sexe" name="sexe" required>
+                        <option value="M">Masculin</option>
+                        <option value="F">Féminin</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="situation_matrimoniale" class="form-label">Situation Matrimoniale</label>
+                    <input type="text" class="form-control" id="situation_matrimoniale" name="situation_matrimoniale" required>
+                </div>
+                <button type="button" class="btn btn-primary next-btn">Suivant</button>
+            </div>
+
+            <!-- Étape 2: Informations Personnelles -->
+            <div class="step">
+                <h2>Informations Personnelles</h2>
+                <div class="mb-3">
+                    <label for="region" class="form-label">Région</label>
+                    <input type="text" class="form-control" id="region" name="region" required>
+                </div>
+                <div class="mb-3">
+                    <label for="telephone_personne_contacter" class="form-label">Téléphone (personne à contacter)</label>
+                    <input type="text" class="form-control" id="telephone_personne_contacter" name="telephone_personne_contacter" required>
+                </div>
+                <div class="mb-3">
+                    <label for="telephone_watsapp" class="form-label">Téléphone WhatsApp</label>
+                    <input type="text" class="form-control" id="telephone_watsapp" name="telephone_watsapp" required>
+                </div>
+                <div class="mb-3">
+                    <label for="numero_identification" class="form-label">Numéro d'Identification</label>
+                    <input type="text" class="form-control" id="numero_identification" name="numero_identification" required>
+                </div>
+                <div class="mb-3">
+                    <label for="adress_email" class="form-label">Adresse E-mail</label>
+                    <input type="email" class="form-control" id="adress_email" name="adress_email" required>
+                </div>
+                <button type="button" class="btn btn-secondary prev-btn">Précédent</button>
+                <button type="button" class="btn btn-primary next-btn">Suivant</button>
+            </div>
+
+            <!-- Étape 3: Informations sur les Études -->
+            <div class="step">
+                <h2>Informations sur les Études</h2>
+                <div class="mb-3">
+                    <label for="dernier_diplome_obtenu" class="form-label">Dernier Diplôme Obtenu</label>
+                    <input type="text" class="form-control" id="dernier_diplome_obtenu" name="dernier_diplome_obtenu" required>
+                </div>
+                <div class="mb-3">
+                    <label for="situation_activite" class="form-label">Situation d'Activité</label>
+                    <input type="text" class="form-control" id="situation_activite" name="situation_activite" required>
+                </div>
+                <div class="mb-3">
+                    <label for="langue_parle1" class="form-label">Langue Parlée 1</label>
+                    <input type="text" class="form-control" id="langue_parle1" name="langue_parle1" required>
+                </div>
+                <div class="mb-3">
+                    <label for="langue_parle2" class="form-label">Langue Parlée 2</label>
+                    <input type="text" class="form-control" id="langue_parle2" name="langue_parle2">
+                </div>
+                <div class="mb-3">
+                    <label for="langue_parle3" class="form-label">Langue Parlée 3</label>
+                    <input type="text" class="form-control" id="langue_parle3" name="langue_parle3">
+                </div>
+                <div class="mb-3">
+                    <label for="connaissance_informatique" class="form-label">Connaissance en Informatique</label>
+                    <select class="form-control" id="connaissance_informatique" name="connaissance_informatique" required>
+                        <option value="oui">Oui</option>
+                        <option value="non">Non</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="experience_collecte_donnees" class="form-label">Expérience dans le domaine de la collecte de données</label>
+                    <select class="form-control" id="experience_collecte_donnees" name="experience_collecte_donnees" required>
+                        <option value="oui">Oui</option>
+                        <option value="non">Non</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="experience_enquete" class="form-label">Expérience dans l'enquête</label>
+                    <select class="form-control" id="experience_enquete" name="experience_enquete" required>
+                        <option value="oui">Oui</option>
+                        <option value="non">Non</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-secondary prev-btn">Précédent</button>
+                <button type="button" class="btn btn-primary next-btn">Suivant</button>
+            </div>
+
+            <!-- Étape 4: Pièce à Joindre -->
+            <div class="step">
+                <h2>Pièce à Joindre</h2>
+                <div class="mb-3">
+                    <label for="cv" class="form-label">CV</label>
+                    <input type="file" class="form-control" id="cv" name="cv" required>
+                </div>
+                <button type="button" class="btn btn-secondary prev-btn">Précédent</button>
+                <button type="submit" class="btn btn-success">Soumettre</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const steps = document.querySelectorAll('.step');
+        let currentStep = 0;
+
+        document.querySelectorAll('.next-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                steps[currentStep].classList.remove('active');
+                currentStep++;
+                steps[currentStep].classList.add('active');
+            });
+        });
+
+        document.querySelectorAll('.prev-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                steps[currentStep].classList.remove('active');
+                currentStep--;
+                steps[currentStep].classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

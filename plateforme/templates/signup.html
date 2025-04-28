@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Style personnalisé pour le formulaire d'inscription avec couleur de fond orangered */
+        .bg-orangered {
+            background-color: rgb(255, 69, 0); /* Couleur orangered */
+            border-radius: 15px;
+            color: white; /* Assurez-vous que le texte est lisible */
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optionnel : pour une apparence plus élégante */
+        }
+
+        .bg-orangered h2, .bg-orangered label, .bg-orangered .form-text {
+            color: white; /* Couleur de texte blanche pour un bon contraste avec le fond orangered */
+        }
+
+        .input-group-text {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-orangered {
+            background-color: rgb(255, 69, 0); /* Utilisation de la même couleur pour la cohérence */
+            border-color: rgb(255, 69, 0);
+            color: white;
+        }
+
+        .btn-orangered:hover {
+            background-color: darkorange; /* Une nuance plus foncée pour l'effet de survol */
+            border-color: darkorange;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 bg-orangered">
+                <h2 class="text-center">Inscription</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-orangered">S'inscrire</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword(inputId, iconId) {
+            var passwordInput = document.getElementById(inputId);
+            var passwordToggleIcon = document.getElementById(iconId);
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                passwordToggleIcon.classList.remove("fa-eye");
+                passwordToggleIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                passwordToggleIcon.classList.remove("fa-eye-slash");
+                passwordToggleIcon.classList.add("fa-eye");
+            }
+        }
+    </script>
+</body>
+</html>

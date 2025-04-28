@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rechercher des Offres d'Emploi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Styles pour le footer */
+        .bg-orange {
+            background-color: #FFA500; /* Couleur orange */
+        }
+        
+        .footer-title {
+            margin: 0;
+            padding-top: 10px;
+            font-weight: bold;
+        }
+
+        .text-white {
+            color: #fff;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .py-3 {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+
+        <!-- Footer en haut du formulaire -->
+        <footer class="footer-top bg-orange text-white text-center py-3 mb-4">
+            <h1 class="footer-title">Rechercher des offres emploi</h1>
+        </footer>
+
+        <!-- Formulaire de recherche -->
+        <form method="GET" class="mb-4">
+            <div class="row">
+                <div class="col-md-5 mb-3">
+                    <input type="text" name="q" class="form-control" placeholder="Rechercher par titre">
+                </div>
+                <div class="col-md-5 mb-3">
+                    <input type="text" name="location" class="form-control" placeholder="Lieu">
+                </div>
+                <div class="col-md-2 mb-3">
+                    <button type="submit" class="btn btn-primary w-100">Rechercher</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Liste des offres d'emploi -->
+        <ul class="list-group">
+            {% if offres %}
+                {% for offre in offres %}
+                    <li class="list-group-item">
+                        <h5>
+                            <a href="{% url 'listoffre' %}">{{ offre.titre }}</a>
+                        </h5>
+                        <p class="mb-1"><strong>Lieu:</strong> {{ offre.location }}</p>
+                        <p class="mb-1"><strong>Entreprise:</strong> {{ offre.entreprise }}</p>
+                        <small class="text-muted">Publié le : {{ offre.date_pub|date:"d/m/Y" }}</small>
+                        
+                        <!-- Section pour afficher l'avis associé -->
+                        {% if offre.avis %}
+                            <div class="mt-3">
+                                <h6>Avis associé:</h6>
+                                <p>{{ offre.avis }}</p>
+                            </div>
+                        {% else %}
+                            <p class="text-muted">Aucun avis associé.</p>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            {% else %}
+                <li class="list-group-item">
+                    <p>Aucune offre ne correspond à votre recherche.</p>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <!-- Footer en bas de la page -->
+    <footer class="footer bg-orange text-white text-center py-2">
+        <div class="container">
+            <p>&copy; 2024 VotreEntreprise. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <!-- Lien vers le JavaScript de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

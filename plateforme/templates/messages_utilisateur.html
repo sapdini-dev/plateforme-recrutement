@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Vos Messages</title>
+</head>
+<body>
+<h2>Vos Messages</h2>
+<ul>
+    {% for message in messages %}
+        <li>
+            <strong>{{ message.subject }}</strong> - {{ message.created_at }}<br>
+            {{ message.message }}<br>
+            {% if message.response %}
+                <strong>Réponse :</strong> {{ message.response }} - {{ message.responded_at }}
+            {% else %}
+                <strong>Pas encore de réponse.</strong>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+</body>
+</html>

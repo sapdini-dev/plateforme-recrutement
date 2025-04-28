@@ -1,0 +1,44 @@
+# Ignorer l'environnement virtuel
+venv/
+env/
+
+# Ignorer les fichiers de base de données
+*.sqlite3
+
+# Ignorer les fichiers de migration compilés
+*.pyc
+__pycache__/
+
+# Ignorer les fichiers statiques générés
+staticfiles/
+static/
+
+# Ignorer les fichiers médias téléchargés
+media/
+
+# Ignorer les paramètres locaux
+*.env
+.env
+
+# Ignorer les fichiers VS Code
+.vscode/
+
+# Ignorer les gros fichiers (exécutables, documents, images inutiles)
+*.exe
+*.zip
+*.tar.gz
+*.rar
+*.docx
+*.xlsx
+*.pptx
+*.pdf
+*.png
+*.jpg
+*.jpeg
+
+# Ignorer les fichiers Node.js (si jamais)
+node_modules/
+
+# Ignorer les fichiers de cache
+.DS_Store
+Thumbs.db

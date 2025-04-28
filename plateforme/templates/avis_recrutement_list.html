@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Liste des Avis de Recrutement</h2>
+
+    <!-- Bouton pour ajouter un avis de recrutement -->
+    <a href="{% url 'avis_recrutement_create' %}" class="btn btn-primary mb-3">Ajouter un Avis de Recrutement</a>
+
+    <!-- Table des avis de recrutement -->
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>N°</th>
+                <th>Intitulé</th>
+                <th>Date de Publication</th>
+                <th>Date d'Expiration</th>
+                <th>Document</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for avis in avis_recrutements %}
+                <tr>
+                    <td>{{ avis.numero }}</td>
+                    <td>{{ avis.intitule }}</td>
+                    <td>{{ avis.date_pub|date:"d/m/Y" }}</td>
+                    <td>{{ avis.date_exp|date:"d/m/Y" }}</td>
+                    <td><a href="{{ avis.document.url }}" class="btn btn-link">Télécharger</a></td>
+                    <td>
+                        <a href="{% url 'avis_recrutement_update' avis.pk %}" class="btn btn-warning">Modifier</a>
+                        <a href="{% url 'avis_recrutement_delete' avis.pk %}" class="btn btn-danger">Supprimer</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center">Aucun avis de recrutement disponible.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block header %}
+<!-- Header orange -->
+<header class="bg-warning text-white text-center py-3">
+    <h1>Gestion des Avis de Recrutement</h1>
+</header>
+{% endblock %}
+
+{% block footer %}
+<!-- Footer orange -->
+<footer class="bg-warning text-white text-center py-3 mt-5">
+    <p>&copy; 2024 Plateforme de Recrutement. Tous droits réservés.</p>
+    <p>Contactez-nous : recrutement@example.com</p>
+</footer>
+{% endblock %}

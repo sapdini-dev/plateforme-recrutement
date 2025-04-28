@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de l'Offre : {{ offre.titre }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Détails de l'Offre : {{ offre.titre }}</h2>
+        <p><strong>Description :</strong> {{ offre.description }}</p>
+        <p><strong>Entreprise :</strong> {{ offre.entreprise }}</p>
+        <p><strong>Date de Publication :</strong> {{ offre.date_pub }}</p>
+        <p><strong>Date d'Expiration :</strong> {{ offre.date_exp }}</p>
+        <p><strong>Location :</strong> {{ offre.location }}</p>
+
+        <h3>Candidatures Associées</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nom du Candidat</th>
+                    <th>Prenom</th>
+                    <th>Email</th>
+                    <th>Téléphone</th>
+                    <th>Date de postulation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if candidatures %}
+                    {% for candidature in candidatures %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ candidature.candidat.nom }}</td>
+                        <td>{{ candidature.candidat.prenom }}</td>
+                        <td>{{ candidature.candidat.email }}</td>
+                        <td>{{ candidature.candidat.telephone_contact }}</td>
+                        <td>{{ candidature.date_postulation|date:'Y-m-d H:i' }}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="6">Aucune candidature reçue pour cette offre.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

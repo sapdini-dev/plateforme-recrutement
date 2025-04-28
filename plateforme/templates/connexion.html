@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .eye-icon {
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            font-size: 1.2rem;
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .password-container input {
+            width: 100%;
+            padding-right: 40px;
+        }
+
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: orange;
+            color: white;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+        }
+
+        .btn-primary {
+            background-color: orange;
+            border-color: orange;
+        }
+
+        .btn-primary:hover {
+            background-color: #cc7a00;
+            border-color: #b36500;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .form-control {
+            border-radius: 0.25rem;
+        }
+
+        .bg-orange {
+            background-color: orange !important;
+        }
+
+        .text-orange {
+            color: orange !important;
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-orange text-white py-3 text-center">
+        <h1>Bienvenue sur notre plateforme</h1>
+    </header>
+
+    <div class="content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="text-center">Connexion</h2>
+                        </div>
+                        <div class="card-body">
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="id_username">Nom d'utilisateur</label>
+                                    {{ form.username }}
+                                </div>
+                                <div class="form-group password-container">
+                                    <label for="id_password">Mot de passe</label>
+                                    {{ form.password }}
+                                    <span class="eye-icon" onclick="togglePasswordVisibility('id_password')">👁️</span>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
+                            </form>
+                            <div class="text-center mt-3">
+                                <p>Pas encore de compte ? <a href="{% url 'inscription' %}" class="btn btn-link">S'inscrire</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-orange text-white py-3 text-center">
+        <p>&copy; 2024 Votre Entreprise. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        function togglePasswordVisibility(id) {
+            var passwordField = document.getElementById(id);
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+    </script>
+</body>
+</html>

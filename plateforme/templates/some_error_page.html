@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil déjà existant</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .content {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .bg-orange {
+            background-color: orange !important;
+        }
+        .text-orange {
+            color: orange !important;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="bg-orange text-white py-3 text-center">
+        <h1>Erreur: Profil déjà existant</h1>
+    </header>
+
+    <div class="content">
+        <div class="container text-center">
+            <div class="alert alert-danger">
+                <h2>Vous avez déjà un profil de candidat.</h2>
+                <p>Il semble que vous ayez déjà créé un profil de candidat. Vous ne pouvez pas créer un nouveau profil.</p>
+            </div>
+
+            <p>Que souhaitez-vous faire maintenant ?</p>
+            <a href="{% url 'candidat_update' pk=candidat.pk %}" class="btn bg-orange text-white">Mettre à jour votre profil</a>
+            <a href="{% url 'candidat_detail' pk=candidat.pk %}" class="btn btn-outline-secondary">Voir votre profil</a>
+        </div>
+    </div>
+
+    <footer class="bg-orange text-white py-3 text-center">
+        <p>&copy; 2024 Votre Entreprise. Tous droits réservés.</p>
+    </footer>
+
+</body>
+</html>

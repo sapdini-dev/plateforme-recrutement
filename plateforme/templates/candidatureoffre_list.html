@@ -1,0 +1,46 @@
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Candidatures</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="text-center">Liste des Candidatures</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Candidat</th>
+                <th>Offre d'Emploi</th>
+                <th>Date de Candidature</th>
+                <th>Statut</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for candidature in candidatures_offre %}
+            <tr>
+                <td>{{ candidature.candidat }}</td>
+                <td>{{ candidature.offre_emploi }}</td>
+                <td>{{ candidature.date_candidature|date:"d/m/Y H:i" }}</td>
+                <td>{{ candidature.get_statut_display }}</td>
+                <td>
+                    <a href="{% url 'candidatureoffre_detail' candidature.pk %}" class="btn btn-info btn-sm">Détails</a>
+                    <a href="{% url 'candidatureoffre_update' candidature.pk %}" class="btn btn-warning btn-sm">Modifier</a>
+                    <a href="{% url 'candidatureoffre_delete' candidature.pk %}" class="btn btn-danger btn-sm">Supprimer</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'candidatureoffre_create' %}" class="btn btn-primary">Ajouter une Candidature</a>
+</div>
+
+</body>
+</html>
+
+

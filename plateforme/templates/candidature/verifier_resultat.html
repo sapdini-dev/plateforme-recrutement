@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résultat de Vérification</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Style personnalisé pour les couleurs du tableau */
+        .table th {
+            background-color: #ffcc00; /* Couleur d'arrière-plan des en-têtes de colonne */
+            color: black; /* Couleur du texte des en-têtes */
+        }
+        .table tr:nth-child(even) {
+            background-color: #f2f2f2; /* Couleur de fond des lignes paires */
+        }
+        .table tr:nth-child(odd) {
+            background-color: #ffffff; /* Couleur de fond des lignes impaires */
+        }
+
+        /* Styles supplémentaires */
+        .bordered-table {
+            border: 2px solid #ffcc00; /* Bordure autour du tableau */
+            border-radius: 5px; /* Coins arrondis */
+            padding: 10px; /* Espacement intérieur */
+            margin-top: 20px; /* Espacement supérieur */
+        }
+        
+        .colored-title {
+            background-color: #ffcc00; /* Couleur de fond de la ligne du titre */
+            padding: 10px; /* Espacement intérieur */
+            border-radius: 5px; /* Coins arrondis */
+            margin-bottom: 20px; /* Espacement inférieur */
+        }
+    </style>
+</head>
+<body>
+
+    <header class="bg-orange text-white text-center py-3">
+        <h1>Résultat de Vérification</h1>
+    </header>
+
+    <div class="container mt-5">
+        <div class="colored-title text-center">
+            <h2>Détails de la Candidature</h2>
+        </div>
+        <div class="bordered-table">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Champ</th>
+                        <th>Détails</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Numéro de Dossier</td>
+                        <td>{{ candidature.numero_dossier }}</td>
+                    </tr>
+                    <tr>
+                        <td>Nom</td>
+                        <td>{{ candidature.candidat.nom }}</td>
+                    </tr>
+                    <tr>
+                        <td>Prénom</td>
+                        <td>{{ candidature.candidat.prenom }}</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>{{ candidature.candidat.email }}</td>
+                    </tr>
+                    <tr>
+                        <td>Téléphone</td>
+                        <td>{{ candidature.candidat.telephone_contact }}</td>
+                    </tr>
+                    <tr>
+                        <td>Date de Postulation</td>
+                        <td>{{ candidature.date_postulation }}</td>
+                    </tr>
+                    <tr>
+                        <td>Statut</td>
+                        <td>{{ candidature.statut.statut }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Lien vers le profil utilisateur -->
+        <div class="text-center mt-4">
+            {% if candidat %}
+            <a href="{% url 'profil_candidat' candidat.pk %}" class="btn btn-primary">Voir votre Profil</a>
+            {% else %}
+            <p>Le profil n'est pas disponible.</p>
+        {% endif %}
+        </div>
+
+        <!-- Ajout du lien pour retourner à la vérification -->
+        <div class="text-center mt-4">
+            <a href="{% url 'tableau_de_bord' %}" class="btn btn-secondary">Retour à la liste des offres</a>
+        </div>
+    </div>
+
+    <footer class="bg-orange text-white text-center py-3 mt-5">
+        <p>&copy; {{ current_year }} - Tous droits réservés</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

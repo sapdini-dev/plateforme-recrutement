@@ -1,0 +1,127 @@
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de la Candidature</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .section-title {
+            background-color: hsl(112, 64%, 46%); /* Couleur de fond des sections */
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .content-section {
+            border: 1px solid #e9ecef;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        .field-label {
+            font-weight: bold;
+            color: hsl(240, 80%, 44%);
+        }
+        .form-footer {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #007bff; /* Couleur du footer identique au bouton */
+            color: white; /* Couleur du texte en contraste */
+            border-top: 1px solid #196ec4;
+            text-align: center; /* Centrer le texte */
+        }
+        .top-footer {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            background-color: #FFA500; /* Couleur orange pour le footer en haut */
+            color: white; /* Couleur du texte en contraste */
+            border-bottom: 1px solid #e9ecef;
+            padding: 10px;
+            z-index: 1;
+            text-align: center; /* Centrer le texte */
+        }
+        .content {
+            margin-top: 100px; /* Espace pour le footer en haut */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Footer en haut -->
+        <footer class="top-footer">
+            <p>INS-NIGER PLATEFORME DE RECRUTEMENT EN LIGNE</p>
+        </footer>
+
+        <div class="content">
+            <!-- Section: Informations sur l'Identification -->
+            <div class="section-title">
+                <h3>Informations sur l'Identification</h3>
+            </div>
+            <div class="content-section">
+                <p><span class="field-label">Nom:</span> {{ candidat.nom }}</p>
+                <p><span class="field-label">Prénom:</span> {{ candidat.prenom }}</p>
+                <p><span class="field-label">Sexe:</span> {{ candidat.sexe }}</p>
+                <p><span class="field-label">Date de Naissance:</span> {{ candidat.date_naissance }}</p>
+                <p><span class="field-label">Lieu de Naissance:</span> {{ candidat.lieu_naissance }}</p>
+                <p><span class="field-label">Situation Matrimoniale:</span> {{ candidat.situation_matrimoniale }}</p>
+            </div>
+
+            <!-- Section: Informations Personnelles -->
+            <div class="section-title">
+                <h3>Informations Personnelles</h3>
+            </div>
+            <div class="content-section">
+                <p><span class="field-label">Région:</span> {{ candidat.region }}</p>
+                <p><span class="field-label">Téléphone Personne à Contacter:</span> {{ candidat.telephone_contact }}</p>
+                <p><span class="field-label">Téléphone WhatsApp:</span> {{ candidat.telephone_whatsapp }}</p>
+                <p><span class="field-label">Numéro d'Identification:</span> {{ candidat.numero_identification }}</p>
+                <p><span class="field-label">Adresse E-mail:</span> {{ candidat.email }}</p>
+            </div>
+
+            <!-- Section: Informations sur l'Étude -->
+            <div class="section-title">
+                <h3>Informations sur l'Étude</h3>
+            </div>
+            <div class="content-section">
+                <p><span class="field-label">Dernier Diplôme Obtenu:</span> {{ candidat.dernier_diplome }}</p>
+                <p><span class="field-label">Situation Activité:</span> {{ candidat.situation_activite }}</p>
+                <p><span class="field-label">Langue Parlée 1:</span> {{candidat.langue_parlee1 }}</p>
+                <p><span class="field-label">Langue Parlée 2:</span> {{ candidat.langue_parlee2 }}</p>
+                <p><span class="field-label">Langue Parlée 3:</span> {{ candidat.langue_parlee3 }}</p>
+                <p><span class="field-label">Connaissance en Informatique:</span> {% if candidat.informatique %}Oui{% else %}Non{% endif %}</p>
+                <p><span class="field-label">Expérience dans l'Utilisation des Tablettes:</span> {% if candidat.tablettes %}Oui{% else %}Non{% endif %}</p>
+                <p><span class="field-label">Expérience en Enquête:</span> {% if candidat.enquete %}Oui{% else %}Non{% endif %}</p>
+            </div>
+
+            <!-- Section: Pièces à Joindre -->
+            <!-- Section: Pièces à Joindre -->
+<div class="section-title">
+    <h3>Pièces à Joindre</h3>
+</div>
+<div class="content-section">
+    <p><span class="field-label">CV:</span> <a href="{{ candidat.cv.url }}" target="_blank">Télécharger le CV</a></p>
+    <p><span class="field-label">Certificat de Nationalité:</span> <a href="{{ candidat.certificat_nationalite.url }}" target="_blank">Télécharger le Certificat de Nationalité</a></p>
+    <p><span class="field-label">Lettre de Motivation:</span> <a href="{{ candidat.lettre_motivation.url }}" target="_blank">Télécharger la Lettre de Motivation</a></p>
+    <p><span class="field-label">Copie Légalisée du Bac:</span> <a href="{{ candidat.copie_legalise_bac.url }}" target="_blank">Télécharger la Copie Légalisée du Bac</a></p>
+    <p><span class="field-label">Copie de l'Extrait de Naissance:</span> <a href="{{ candidat.copie_extrait_naissance.url }}" target="_blank">Télécharger l'Extrait de Naissance</a></p>
+    <p><span class="field-label">Certificat de Domicile ou de Résidence:</span> <a href="{{ candidat.certificat_domicile_ou_residence.url }}" target="_blank">Télécharger le Certificat de Domicile ou de Résidence</a></p>
+    <p><span class="field-label">Attestation d'Enquête:</span> <a href="{{ candidat.atestation_enquete.url }}" target="_blank">Télécharger l'Attestation d'Enquête</a></p>
+</div>
+
+
+            <!-- Lien de retour vers la liste des candidatures -->
+            <div class="text-center">
+                <a href="{% url 'some_error_page' %}" class="btn btn-primary">Retour en arriere</a>
+            </div>
+        </div>
+
+        <!-- Footer en bas -->
+        <footer class="form-footer">
+            <p>INS-NIGER PLATEFORME DE RECRUTEMENT EN LIGNE</p>
+        </footer>
+    </div>
+</body>
+</html>

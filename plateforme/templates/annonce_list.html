@@ -1,0 +1,108 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Annonces</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .top-footer {
+            position: fixed; /* Garder l'en-tête visible au défilement */
+            top: 0;
+            width: 100%;
+            background-color: #FFA500;
+            color: white;
+            border-bottom: 1px solid #e9ecef;
+            padding: 10px;
+            text-align: center;
+            z-index: 1000; /* S'assurer que l'en-tête est toujours au-dessus */
+        }
+        .form-footer {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border-top: 1px solid #e9ecef;
+            text-align: center;
+        }
+        .content {
+            margin-top: 120px; /* Ajustement pour éviter de superposer l'en-tête */
+        }
+        .btn-orange {
+            background-color: #FFA500;
+            color: white;
+            border: none;
+        }
+        .btn-orange:hover {
+            background-color: #ff8c00;
+        }
+        .btn-group {
+            display: flex;
+            gap: 5px; /* Espace entre les boutons */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Footer en haut -->
+        <footer class="top-footer">
+            <p>INS-NIGER PLATEFORME DE RECRUTEMENT EN LIGNE</p>
+        </footer>
+
+        <div class="content">
+            <h1>Liste des Annonces</h1>
+            <a href="{% url 'annonce_create' %}" class="btn btn-orange mb-3">Ajouter une Annonce</a>
+            
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Titre</th>
+                        <th>Description</th>
+                        <th>Date de Publication</th>
+                        <th>Document</th> <!-- Champ pour le document -->
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for annonce in annonces %}
+                        <tr>
+                            <td>{{ annonce.id }}</td>
+                            <td>{{ annonce.titre }}</td>
+                            <td>{{ annonce.contenu }}</td>
+                            <td>{{ annonce.date_pub }}</td>
+                            <td>
+                                {% if annonce.document %}
+                                    <a href="{{ annonce.document.url }}" class="btn btn-secondary btn-sm" download>Télécharger</a>
+                                {% else %}
+                                    Pas de document
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a href="{% url 'annonce_detail' annonce.id %}" class="btn btn-primary btn-sm">Détails</a>
+                                    <a href="{% url 'annonce_update' annonce.id %}" class="btn btn-warning btn-sm">Modifier</a>
+                                    <a href="{% url 'annonce_delete' annonce.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette annonce ?')">Supprimer</a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center">Aucune annonce disponible.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Footer en bas -->
+        <footer class="form-footer">
+            <p>© 2024 INS-NIGER. Tous droits réservés.</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

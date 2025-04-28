@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .content {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .bg-orange {
+            background-color: orange !important;
+        }
+        .text-orange {
+            color: orange !important;
+        }
+        .password-container {
+            position: relative;
+        }
+        .password-container input {
+            width: 100%;
+            padding-right: 30px;
+        }
+        .eye-icon {
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+        .signup-link {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .signup-link a {
+            color: orange;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-orange text-white py-3 text-center">
+        <h1>Connexion</h1>
+    </header>
+
+    <div class="content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header bg-orange text-white">
+                            <h2 class="text-center">Se Connecter</h2>
+                        </div>
+                        <div class="card-body">
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="id_username">Nom d'utilisateur</label>
+                                    {{ form.username }}
+                                    {% if form.username.errors %}
+                                        <div class="alert alert-danger">
+                                            {% for error in form.username.errors %}
+                                                <p>{{ error }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group password-container">
+                                    <label for="id_password">Mot de passe</label>
+                                    {{ form.password }}
+                                    {% if form.password.errors %}
+                                        <div class="alert alert-danger">
+                                            {% for error in form.password.errors %}
+                                                <p>{{ error }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    <span class="eye-icon" onclick="togglePasswordVisibility('id_password')">👁️</span>
+                                </div>
+                                <button type="submit" class="btn bg-orange text-white btn-block">Se Connecter</button>
+                            </form>
+
+                            <div class="signup-link">
+                                <p>Vous n'avez pas de compte ? <a href="{% url 'register' %}">Créez-en un ici</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-orange text-white py-3 text-center">
+        <p>&copy; 2024 Votre Entreprise. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        function togglePasswordVisibility(id) {
+            var passwordField = document.getElementById(id);
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+    </script>
+</body>
+</html>

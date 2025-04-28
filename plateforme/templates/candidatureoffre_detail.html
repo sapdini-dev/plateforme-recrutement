@@ -1,0 +1,33 @@
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de la Candidature</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="text-center">Détails de la Candidature</h1>
+    <dl class="row">
+        <dt class="col-sm-3">Candidat</dt>
+        <dd class="col-sm-9">{{ object.candidat }}</dd>  <!-- Utiliser 'object' pour le contexte par défaut -->
+
+        <dt class="col-sm-3">Offre d'Emploi</dt>
+        <dd class="col-sm-9">{{ object.offre_emploi }}</dd>
+
+        <dt class="col-sm-3">Date de Candidature</dt>
+        <dd class="col-sm-9">{{ object.date_candidature|date:"d/m/Y H:i" }}</dd>
+
+        <dt class="col-sm-3">Statut</dt>
+        <dd class="col-sm-9">{{ object.get_statut_display }}</dd>  <!-- Appeler la méthode pour afficher le choix -->
+    </dl>
+    <a href="{% url 'candidatureoffre_update' object.pk %}" class="btn btn-warning">Modifier</a>
+    <a href="{% url 'candidatureoffre_delete' object.pk %}" class="btn btn-danger">Supprimer</a>
+    <a href="{% url 'candidatureoffre_list' %}" class="btn btn-primary">Retour à la Liste</a>
+</div>
+
+</body>
+</html>

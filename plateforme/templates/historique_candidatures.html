@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historique des Candidatures</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Historique de Mes Candidatures</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Offre d'Emploi</th>
+                    <th>Date de Candidature</th>
+                    <th>Statut</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for candidature in candidatures %}
+                <tr>
+                    <td>{{ candidature.offre_emploi }}</td>
+                    <td>{{ candidature.date_candidature }}</td>
+                    <td>{{ candidature.statut }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">Aucune candidature trouvée.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

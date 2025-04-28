@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Liste des Offres d'Emploi</title>
+</head>
+<body>
+    <h1>Liste des Offres d'Emploi</h1>
+    <ul>
+        {% for offre in offres %}
+            <li>{{ offre.titre }} - {{ offre.entreprise }} ({{ offre.location }})</li>
+        {% endfor %}
+    </ul>
+</body>
