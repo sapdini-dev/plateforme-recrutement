@@ -4,9 +4,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-r9qvh7o8r36iab813lo4u8xe)j*nfvm5s1+x%g*=g1psor&!+b'
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',  # Pour le local
+    'localhost',  # Pour le local
+    'plateforme-recrutement.onrender.com',  # Ajouter le domaine Render
+    'www.plateforme-recrutement.onrender.com',  # Si tu veux également inclure le domaine avec "www"
+]
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -49,16 +55,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'gestion_recrutement.wsgi.application'
 
+import os
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ins',
-        'HOST': '127.0.0.1',
-        'USER': 'root',
-        'PASSWORD': '',
-        'PORT': '3306',
+        'NAME': os.environ.get('DB_NAME', 'ins'),  # Nom de la base de données
+        'HOST': os.environ.get('DB_HOST', '127.0.0.1'),  # Hôte de la base
+        'USER': os.environ.get('DB_USER', 'root'),  # Utilisateur
+        'PASSWORD': os.environ.get('DB_PASSWORD', ''),  # Mot de passe
+        'PORT': os.environ.get('DB_PORT', '3306'),  # Port de la base
     }
 }
+
 
 LANGUAGE_CODE = 'en-us'
 
@@ -72,6 +81,8 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Dossier où les fichiers statiques seront collectés
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
